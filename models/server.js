@@ -10,6 +10,7 @@ class Server{
         this.app       = express();
         this.port      = process.env.PORT || 3000;
         this.usersPath = `${urlBase}/v1/users`;
+        this.authPath  = `${urlBase}/v1/auth`
 
         //Conectar a db
         this.conectarDB();
@@ -34,7 +35,7 @@ class Server{
 
         //lectura y parseo del body
         this.app.use( express.json() );
-        
+
         //Directorio publico
         this.app.use( urlBase, express.static('public') );
         // this.app.use( `${urlBase}/v1`, express.static('public') );
@@ -43,7 +44,8 @@ class Server{
 
 
     routes(){
-        this.app.use(this.usersPath, require('../routes/users'));        
+        this.app.use(this.authPath,  require('../routes/auth'));
+        this.app.use(this.usersPath, require('../routes/users'));
     }
 
 
