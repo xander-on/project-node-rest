@@ -13,7 +13,8 @@ const router = Router();
 const {
     isValidRole,
     emailExiste,
-    existsUserById
+    existsUserById,
+    isValidRolePost
 } = require('../helpers/db-validators');
 
 const {
@@ -30,7 +31,7 @@ const validatorsPost = [
     check('email',    'El correo no es valido').isEmail(),
     check('email').custom( emailExiste ),
     check('password', 'El password debe de ser mayor a 6 letras').isLength({ min:6 }),
-    check('role').custom( isValidRole ),
+    check('role').custom( isValidRolePost ),
     validarCampos
 ];
 

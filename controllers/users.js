@@ -28,7 +28,7 @@ const usersPost = async(req, res = response) => {
     //encriptar la contrasena
     const salt    = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync( password, salt );
-
+    // user.role = 'USER_ROLE';
     //guardar en bd
     await user.save();
 

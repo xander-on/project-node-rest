@@ -8,6 +8,17 @@ const isValidRole = async( role='' ) => {
 }
 
 
+const isValidRolePost= async( role='' ) => {
+    if(role !== '') {
+        const existsRole = await Role.findOne({ role });
+        if( !existsRole )
+            throw new Error(`El rol '${ role }' no esta registrado en la BD`);
+    };
+    if( role === 'ADMIN_ROLE' )
+        throw new Error(`No se puede registrar con el rol: 'ADMIN_ROLE'`);
+}
+
+
 const emailExiste = async( email = '' ) => {
     const existeEmail = await User.findOne({ email });
     if( existeEmail )
@@ -24,5 +35,6 @@ const existsUserById = async( id ) => {
 module.exports = {
     isValidRole,
     emailExiste,
-    existsUserById
+    existsUserById,
+    isValidRolePost
 }
