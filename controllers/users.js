@@ -23,17 +23,17 @@ const usersGet = async(req, res = response) => {
 const usersPost = async(req, res = response) => {
 
     const { name, email, password, role } = req.body;
-    const usuario = new User({ name, email, password, role });
+    const user = new User({ name, email, password, role });
 
     //encriptar la contrasena
-    const salt = bcryptjs.genSaltSync();
-    usuario.password = bcryptjs.hashSync( password, salt );
+    const salt    = bcryptjs.genSaltSync();
+    user.password = bcryptjs.hashSync( password, salt );
 
     //guardar en bd
-    await usuario.save();
+    await user.save();
 
     res.json({
-        usuario
+        user
     });
 }
 
