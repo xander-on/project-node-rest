@@ -1,5 +1,6 @@
-const express = require('express');
-const cors    = require('cors');
+const express          = require('express');
+const cors             = require('cors');
+const fileUpload       = require('express-fileupload');
 const { dbConnection } = require('../database/config');
 
 const urlBase = '/api-users'
@@ -16,6 +17,7 @@ class Server{
             products   : `${urlBase}/v1/products`,
             search     : `${urlBase}/v1/search`,
             users      : `${urlBase}/v1/users`,
+            uploads    : `${urlBase}/v1/uploads`
         }
 
         //Conectar a db
@@ -46,6 +48,13 @@ class Server{
         this.app.use( urlBase, express.static('public') );
         // this.app.use( `${urlBase}/v1`, express.static('public') );
 
+        //fileupload
+        this.app.use(fileUpload({
+            useTempFiles    :true,
+            tempFileDir     : '/tmp/',
+            createParentPath: true
+        }));
+
     }
 
 
@@ -54,7 +63,8 @@ class Server{
         this.app.use( this.paths.categories, require('../routes/categories'));
         this.app.use( this.paths.products,   require('../routes/products'));
         this.app.use( this.paths.users,      require('../routes/users'));
-        this.app.use( this.paths.search,     require('../routes/search'))
+        this.app.use( this.paths.search,     require('../routes/search'));
+        this.app.use( this.paths.uploads,    require('../routes/uploads') )
     }
 
 

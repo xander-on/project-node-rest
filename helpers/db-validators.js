@@ -58,6 +58,18 @@ const existsProductName = async( name='' ) => {
         throw new Error(`El nombre: ${ name }, ya esta registrado`);
 }
 
+
+
+const collectionsAllowed = ( collection ='', collections=[] ) => {
+
+    const includesCollection = collections.includes( collection );
+    if( !includesCollection ){
+        throw new Error( `La colección ${ collection } no es permitida, ${ collections}`);
+    }
+
+    return true;
+}
+
 module.exports = {
     isValidRole,
     emailExiste,
@@ -65,5 +77,6 @@ module.exports = {
     isValidRolePost,
     existsCategoryById,
     existsProductById,
-    existsProductName
+    existsProductName,
+    collectionsAllowed
 }
