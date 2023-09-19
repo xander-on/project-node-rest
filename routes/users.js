@@ -54,6 +54,7 @@ const validatorDelete = [
 ];
 
 router.get   ('/',    usersGet);
+// router.get   ('/:id'  getUserById );
 router.post  ('/',    validatorsPost,  usersPost);
 router.put   ('/:id', validatorsPut,   usersPut);
 router.delete('/:id', validatorDelete, usersDelete);
