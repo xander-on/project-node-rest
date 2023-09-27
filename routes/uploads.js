@@ -21,9 +21,8 @@ const validatorsGetUploads = [
     validarCampos
 ];
 
-router.post( '/', validateFile, loadFile );
-router.put( '/:collection/:id', validatorsPutUploads, updateImageCloudinary );
-
+router.post('/',               validateFile, loadFile );
+router.put('/:collection/:id', validatorsPutUploads, updateImageCloudinary );
 router.get('/:collection/:id', validatorsGetUploads, showImage);
 
 module.exports = router;

@@ -35,7 +35,7 @@ const tieneRol = ( ...roles ) => {
         if( !roles.includes( req.user.role ) ){
             return res.status(401).json({
                 msg: `Para realizar esta accion se requiere uno de estos roles: ${ roles }`
-            })
+            });
         }
 
         next();

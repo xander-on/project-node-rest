@@ -5,6 +5,7 @@ const User         = require('../models/user');
 const usersGet = async(req, res = response) => {
 
     const { limit=10, from=0 } = req.query;
+
     const query = { state: true }
 
     // const total = users.length;
@@ -20,7 +21,7 @@ const usersGet = async(req, res = response) => {
 }
 
 
-const usersPost = async(req, res = response) => {
+const userPost = async(req, res = response) => {
 
     const { name, email, password, role } = req.body;
     const user = new User({ name, email, password, role });
@@ -50,7 +51,6 @@ const usersPut = async(req, res = response) => {
     }
 
     const usuario = await User.findByIdAndUpdate( id, resto );
-
     res.json({ usuario });
 }
 
@@ -76,7 +76,7 @@ const usersDelete = async(req, res = response) => {
 
 module.exports = {
     usersGet,
-    usersPost,
+    userPost,
     usersPut,
     userPatch,
     usersDelete

@@ -22,7 +22,6 @@ const subirArchivo = ( files, extensionesValidas=extensionesImg, carpeta='' ) =>
 
         archivo.mv(uploadPath, (err) => {
             if( err ) reject( err );
-
             resolve( nombreTemp );
         });
     });

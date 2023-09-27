@@ -1,7 +1,6 @@
 const { request } = require('express');
-const jwt = require('jsonwebtoken');
-
-const User = require('../models/user');
+const jwt         = require('jsonwebtoken');
+const { User }    = require('../models/');
 
 
 const validarJWT = async ( req= request, res, next) => {
@@ -15,8 +14,7 @@ const validarJWT = async ( req= request, res, next) => {
     }
 
     try {
-
-        const { uid } = jwt.verify( token, process.env.SECRETORPRIVATEKEY );
+        const { uid } = jwt.verify( token, process.env.SECRETORPUBLICKEY );
 
         //leer el usuario que corresponde al uid
         const user = await User.findById(uid);
@@ -35,15 +33,12 @@ const validarJWT = async ( req= request, res, next) => {
         }
 
         req.user = user;
-
         next();
 
     } catch (error) {
 
         console.log(error);
-        res.status(401).json({
-            msg: 'Token no valido'
-        });
+        res.status(401).json({ msg: 'Token no valido' });
 
     }
 }

@@ -13,6 +13,6 @@ const validateFile = (req, res = response, next) => {
 }
 
 
-module.exports= {
+module.exports = {
     validateFile
 }

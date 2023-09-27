@@ -57,22 +57,16 @@ const validateDeleteProduct = [
 //obtener todas las categorias - publico
 router.get('/', getProducts);
 
-
 //obtener una category por id -publico
 router.get('/:id', validateGetProductById, getProductById);
-
 
 //crear categoria - privado - cualquier persona con un token valido
 router.post('/', validatePostProduct, createProduct);
 
-
 //Actualizar - privado - cualquiera con token valido
 router.put('/:id', validatePutProduct, updateProduct);
 
-
 // Borrar una categoria - Admin
 router.delete('/:id', validateDeleteProduct, deleteProduct);
-
-
 
 module.exports = router;

@@ -7,25 +7,23 @@ const {User, Product } = require('../models');
 const cloudinary       = require('cloudinary').v2;
 cloudinary.config( process.env.CLOUDINARY_URL );
 
-const loadFile = async(req, res = response) => {
 
+const loadFile = async(req, res = response) => {
     try {
         const nombre = await subirArchivo( req.files, undefined, 'imgs' );
         res.json({ nombre });
     } catch (msg) {
         res.status(400).json({ msg });
     }
-
 }
 
 
 const updateImage = async( req, res=response ) => {
-
-    const { id, collection } = req.params;
-
+    const { collection, id } = req.params;
     let model;
 
     switch( collection ){
+
         case 'users':
             model = await User.findById(id);
             if( !model ){
@@ -51,17 +49,12 @@ const updateImage = async( req, res=response ) => {
     //limpiar imagenes previas
     if( model.img ){
         const pathImage = path.join(__dirname, '../uploads', collection, model.img );
-        if( fs.existsSync(pathImage) ){
-            fs.unlinkSync(pathImage);
-        }
+        if( fs.existsSync(pathImage) ) fs.unlinkSync(pathImage);
     }
-
 
     const nombre = await subirArchivo( req.files, undefined, collection );
     model.img = nombre;
-
     await model.save();
-
     res.json( model );
 }
 
@@ -69,7 +62,6 @@ const updateImage = async( req, res=response ) => {
 const updateImageCloudinary = async( req, res=response ) => {
 
     const { id, collection } = req.params;
-
     let model;
 
     switch( collection ){
@@ -97,14 +89,14 @@ const updateImageCloudinary = async( req, res=response ) => {
 
     //limpiar imagenes previas
     if( model.img ){
-        const nombreArr = model.img.split('/');
-        const nombre = nombreArr[ nombreArr.length -1 ];
+        const nombreArr     = model.img.split('/');
+        const nombre        = nombreArr[ nombreArr.length -1 ];
         const [ public_id ] = nombre.split('.');
         cloudinary.uploader.destroy( `cafe-app/${collection}/${public_id}` );
     }
 
     const { tempFilePath } = req.files.archivo;
-    const { secure_url } = await cloudinary.uploader.upload( tempFilePath, { folder: `cafe-app/${collection}`} );
+    const { secure_url }   = await cloudinary.uploader.upload( tempFilePath, { folder: `cafe-app/${collection}`} );
     model.img = secure_url;
     await model.save();
 
@@ -116,7 +108,6 @@ const updateImageCloudinary = async( req, res=response ) => {
 const showImage = async( req, res=response ) => {
 
     const { id, collection } = req.params;
-
     let model;
 
     switch( collection ){

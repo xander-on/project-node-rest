@@ -19,7 +19,7 @@ const {
 
 const {
     usersGet,
-    usersPost,
+    userPost,
     usersPut,
     userPatch,
     usersDelete
@@ -55,7 +55,7 @@ const validatorDelete = [
 
 router.get   ('/',    usersGet);
 // router.get   ('/:id'  getUserById );
-router.post  ('/',    validatorsPost,  usersPost);
+router.post  ('/',    validatorsPost,  userPost);
 router.put   ('/:id', validatorsPut,   usersPut);
 router.delete('/:id', validatorDelete, usersDelete);
 router.patch ('/',    userPatch);

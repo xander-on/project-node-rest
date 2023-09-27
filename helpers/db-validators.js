@@ -22,7 +22,7 @@ const isValidRolePost= async( role='' ) => {
 const emailExiste = async( email = '' ) => {
     const existeEmail = await User.findOne({ email });
     if( existeEmail )
-        throw new Error(`El eamil: ${ email }, ya esta registrado`);
+        throw new Error(`El email: ${ email }, ya esta registrado`);
 }
 
 

@@ -1,6 +1,6 @@
 const { response }     = require("express");
 const User             = require('../models/user');
-const bycryptjs        = require('bcryptjs');
+const bcryptjs        = require('bcryptjs');
 const { generarJWT }   = require("../helpers/generar-jwt");
 const { googleVerify } = require("../helpers/google-verify");
 
@@ -27,7 +27,7 @@ const login = async(req, res = response) => {
         }
 
         //verificar la contrasena
-        const validPassword = bycryptjs.compareSync( password, user.password );
+        const validPassword = bcryptjs.compareSync( password, user.password );
         if( !validPassword ){
             return res.status(400).json({
                 msg:'Usuario / Password no son correctos - password'
@@ -74,11 +74,11 @@ const googleSignIn = async( req, res = response) => {
         }
 
 
-        // si el usuario en db status = false
+        // si el usuario en db con status = false
         if( !user.state ){
             return res.status(401).json({
                 msg: 'Hable con el administrador, usuario bloqueado'
-            })
+            });
         }
 
         //generar el jwt
